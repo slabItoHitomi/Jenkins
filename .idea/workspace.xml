@@ -4,134 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4ab90f6-4057-4e5f-bed7-4cd466887a1e" name="変更" comment="初コミット">
-      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Jenkins4.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/DevTrainingApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/common/CodeValue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/common/Priority.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/common/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/config/MessageConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/config/MultiPartConfigure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/config/WebSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/AccountPasswordUpdateController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/AccountProfileImageUploadController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/AccountRegisterController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/AccountSearchController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/AccountUnsubscribeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/AccountUpdateController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/CommentDeleteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/CommentRegisterController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/CommentSearchController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/ImageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/IndexController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/TodoDeleteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/TodoRegisterController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/TodoSearchController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/TodoUpdateController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/controller/TopController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/entity/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/entity/Comment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/entity/CommentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/entity/Todo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/entity/TodoRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/extended_entity/ExtendedComment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/extended_entity/ExtendedCommentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/form/AccountPasswordUpdateForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/form/AccountRegisterForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/form/AccountSearchForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/form/AccountUpdateForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/form/CommentRegisterForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/form/TodoRegisterForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/form/TodoSearchForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/form/TodoUpdateForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/AccountPasswordUpdateService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/AccountRegisterService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/AccountSpecifications.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/AccountUnsubscribeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/AccountUpdateService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/CommentDeleteService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/CommentRegisterService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/CommentSearchService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/JpaUserDetailsServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/TodoDeleteService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/TodoRegisterService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/TodoSpecifications.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/TodoUpdateService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/service/TopService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/validator/Date.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/validator/DateImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/validator/HalfAlphameric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/validator/HalfAlphamericSymbol.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/validator/HalfDigit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev_training/validator/Password.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ValidationMessages.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/code.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/public/error/400.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/public/error/403.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/public/error/404.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/public/error/500.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/public/error/503.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/datepicker.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/errordesign.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/tempusdominus-bootstrap-4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/tempusdominus-bootstrap-4.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/training.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/jumbo.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/memo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/noimage" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/note.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/jquery-3.3.1.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/tempusdominus-bootstrap-4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/tempusdominus-bootstrap-4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/training.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountPagingSearchForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountPasswordUpdateCompleteForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountPasswordUpdateForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountProfileImageUploadForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountRegisterCompleteForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountRegisterConfirmForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountRegisterForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountSearchForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountUnsubscribeCompleteForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountUnsubscribeConfirmForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountUnsubscribeForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountUpdateCompleteForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountUpdateConfirmForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/account/accountUpdateForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/common/commonError.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/common/common_footer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/common/common_header.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/common/loggedinNav.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/common/noLoginNav.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/login/loginForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/todo/todoDeleteCompleteForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/todo/todoDeleteConfirmForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/todo/todoRegisterCompleteForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/todo/todoRegisterConfirmForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/todo/todoRegisterForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/todo/todoSearchDetailForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/todo/todoSearchForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/todo/todoUpdateCompleteForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/todo/todoUpdateConfirmForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/todo/todoUpdateForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/top/topForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/com/dev_training/entity/AccountRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/dev_training/DevTrainingApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/dev_training/service/AccountSearchService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/dev_training/service/TodoSearchService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/dev_training/service/TopServiceTest.java" afterDir="false" />
+    <list default="true" id="a4ab90f6-4057-4e5f-bed7-4cd466887a1e" name="変更" comment="">
+      <change afterPath="$PROJECT_DIR$/../$Recycle.Bin/S-1-5-21-260027672-4234547105-1649194566-1001/$R6U8F0A/.idea/study.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../$Recycle.Bin/S-1-5-21-260027672-4234547105-1649194566-1001/$RNUR8RC/product1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../$Recycle.Bin/S-1-5-21-260027672-4234547105-1649194566-1001/$RWO61AV/ito.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/DemoApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/test/java/com/example/demo/DemoApplicationTests.java" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/UI/UI.iml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/java_activity/java_activity.iml" afterDir="false" />
+      <change afterPath="$USER_HOME$/IdeaProjects/product/product.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java_activity-main/.idea/java_activity.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java_activity-main/java_activity.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +36,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/demo" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -154,6 +51,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8",
     "last_opened_file_path": "C:/Jenkins4",
@@ -180,6 +78,15 @@
       <recent name="C:\Jenkins4" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="demo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="アプリケーションレベル" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="デフォルトタスク">
@@ -188,8 +95,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1692584083103</updated>
-      <workItem from="1692584084096" duration="1147000" />
+      <workItem from="1692584084096" duration="2829000" />
     </task>
+    <task id="LOCAL-00001" summary="初コミット">
+      <created>1692585246667</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1692585246667</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
