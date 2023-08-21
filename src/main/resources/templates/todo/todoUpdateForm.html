@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common_header::base_header(~{::title})">
+    <title>TODO更新</title>
+</head>
+<body>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <h2 class="text-center pb-4">TODO更新</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header bg-custom1">
+                    <h3 class="mb-0">TODO情報入力</h3>
+                </div>
+                <div class="card-body">
+                    <form id="todoForm" th:action="@{/todo/update/confirm}" th:object="${todoUpdateForm}" method="post">
+                        <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+                            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">共通エラーメッセージ表示エリア</p>
+                        </div>
+                        <fieldset id="todo_field">
+                            <div class="form-group required">
+                                <label for="title">タイトル</label><br/>
+                                <input class="form-control" id="title" type="text"  th:field="*{title}" name="title" th:errorclass="is-invalid" required placeholder="TODOタイトルを入力してください"/>
+                                <small class="form-text text-muted">45文字以内で入力してください。</small>
+                                <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">error!</span>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="detail">詳細</label><br/>
+                                <textarea class="form-control" id="detail" rows="10" cols="80"  th:field="*{detail}" name="detail" th:errorclass="is-invalid" required placeholder="TODO詳細を入力してください。"></textarea>
+                                <small class="form-text text-muted">2000文字以内で入力してください。</small>
+                                <span class="text-danger" th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}">error!</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="remarks">備考</label><br/>
+                                <textarea class="form-control" id="remarks" rows="4" cols="80"  th:field="*{remarks}" name="remarks" th:errorclass="is-invalid" placeholder="備考を入力してください。"></textarea>
+                                <small class="form-text text-muted">2000文字以内で入力してください。</small>
+                                <span class="text-danger" th:if="${#fields.hasErrors('remarks')}" th:errors="*{remarks}">error!</span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group">
+                                        <label for="startDate">開始日</label><br/>
+                                        <div class="input-group date" data-target-input="nearest">
+                                            <input type="text" id="startDate" th:field="*{startDate}" name="startDate" class="form-control datetimepicker-input" data-target="#startDate" th:errorclass="is-invalid"/>
+                                            <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">error!</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group">
+                                        <label for="endDate">終了日</label><br/>
+                                        <div class="input-group date" data-target-input="nearest">
+                                            <input type="text" id="endDate" th:field="*{endDate}" name="endDate" class="form-control datetimepicker-input" data-target="#endDate" th:errorclass="is-invalid"/>
+                                            <div class="input-group-append" data-target="#endDate" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">error!</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group required">
+                                        <label for="issuePersonId">起票者</label><br/>
+                                        <select class="form-control" id="issuePersonId" th:field="*{issuePersonId}" th:errorclass="is-invalid">
+                                            <option th:each="account : ${accountList}" th:value="${account.id}" th:text="${account.name}"></option>
+                                        </select>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('issuePersonId')}" th:errors="*{issuePersonId}">error!</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group required">
+                                        <label for="personInChargeId">担当者</label><br/>
+                                        <select class="form-control" id="personInChargeId" th:field="*{personInChargeId}" th:errorclass="is-invalid">
+                                            <option th:each="account : ${accountList}" th:value="${account.id}" th:text="${account.name}"></option>
+                                        </select>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('personInChargeId')}" th:errors="*{personInChargeId}">error!</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group required">
+                                        <label for="status">ステータス</label><br/>
+                                        <select class="form-control" id="status" th:field="*{status}" th:errorclass="is-invalid">
+                                            <option th:each="entry : ${allStatus.status.entrySet()}" th:value="${entry.key}" th:text="${entry.value}"></option>
+                                        </select>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">error!</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group required">
+                                        <label for="priority">優先度</label><br/>
+                                        <select class="form-control" id="priority" th:field="*{priority}" th:errorclass="is-invalid">
+                                            <option th:each="entry : ${allPriority.priority.entrySet()}" th:value="${entry.key}" th:text="${entry.value}"></option>
+                                        </select>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}">error!</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="id" id="id" th:value="*{id}"/>
+
+                            <div class="col text-center">
+                                <input type="submit" value="確認画面へ" class="btn bg-custom3 btn-lg text-white" />
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var dateFormat = 'YYYY/MM/DD';
+        var startDatePicker = $('#startDate');
+        var endDatePicker = $('#endDate');
+
+        var startDate = moment(startDatePicker.val(), dateFormat).toDate();
+        var endDate = moment(endDatePicker.val(), dateFormat).toDate();
+        startDatePicker.datetimepicker({format: dateFormat, date: null});
+        startDatePicker.datetimepicker('date', startDate);
+        endDatePicker.datetimepicker({format: dateFormat, date: null});
+        endDatePicker.datetimepicker('date', endDate);
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg rounded sticky-top navbar-light bg-custom2" th:fragment="navi(accountName)" xmlns:th="">
+    <ul class="navbar-nav mr-auto">
+        <a class="navbar-brand h2" href="#">TODO Management System</a>
+        <li class="nav-item">
+            <a class="nav-link active" href="/top">トップ画面</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" id="accountMenuLink" aria-haspopup="true" aria-expanded="false">アカウント機能</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/account/update/init">アカウント情報更新</a>
+                <a class="dropdown-item" href="/account/password/init">パスワード更新</a>
+                <a class="dropdown-item" href="/account/search/init">アカウント一覧検索</a>
+                <a class="dropdown-item" href="/account/search/paging/init">ページング検索</a>
+                <a class="dropdown-item" href="/account/upload/init">画像アップロード</a>
+                <a class="dropdown-item" href="/account/unsubscribe/init">退会</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" id="todoMenuLink" aria-haspopup="true" aria-expanded="false">TODO機能</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/todo/register/init">TODO登録</a>
+                <a class="dropdown-item" href="/todo/search/init">TODO一覧検索</a>
+            </div>
+        </li>
+    </ul>
+
+    <span class="navbar-text pr-3" th:text="'ようこそ ' + ${session.account.name} + ' さん。'"></span>
+    <form id="logout" th:action="@{/logout}" method="post" class="form-inline">
+        <input type="submit" class="btn bg-custom3 text-white btn-lg navbar-btn" value="Sign out"/>
+    </form>
+</nav>

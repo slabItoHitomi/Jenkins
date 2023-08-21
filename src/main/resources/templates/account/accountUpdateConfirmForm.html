@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common_header::base_header(~{::title})">
+    <title>アカウント情報更新確認</title>
+</head>
+<body>
+
+<nav th:replace="common/loggedinNav::navi(${accountName})"></nav>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <h2 class="text-center pb-4">アカウント情報更新</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <div class="card rounded-0 card-shadow">
+                <div class="card-header bg-custom1">
+                    <h3 class="mb-0">更新内容確認</h3>
+                </div>
+                <div class="card-body">
+                    <form id="accountForm" th:action="@{/account/update/do}" th:object="${accountUpdateForm}" method="post">
+                        <fieldset id="account_field">
+                            <div class="form-group">
+                                <label>アカウントID</label><br/>
+                                <span class="form-control-static" th:text="*{accountId}"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>氏名</label><br/>
+                                <span class="form-control-static" th:text="*{name}"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail</label><br/>
+                                <span class="form-control-static" th:text="*{email}"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>自己紹介</label><br/>
+                                <span class="form-control-static" th:utext="*{selfIntroduction} ? ${#strings.replace(#strings.escapeXml(accountUpdateForm.selfIntroduction), T(java.lang.System).getProperty('line.separator'), '&lt;br /&gt;')} : ''"></span>
+                            </div>
+                            <input type="hidden" name="accountId" id="accountId" th:value="*{accountId}"/>
+                            <input type="hidden" name="name" id="name" th:value="*{name}"/>
+                            <input type="hidden" name="email" id="email" th:value="*{email}"/>
+                            <input type="hidden" name="selfIntroduction" id="selfIntroduction" th:value="*{selfIntroduction}"/>
+                            <div class="col text-center">
+                                <div class="btn-group">
+                                    <input type="submit" name="back" value="戻る" class="btn bg-custom3 btn-lg text-white "/>
+                                </div>
+                                <div class="btn-group">
+                                    <input type="submit" name="update" value="更新" class="btn bg-custom3 btn-lg text-white "/>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="common/common_footer"></footer>
+</body>
+</html>

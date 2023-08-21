@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common_header::base_header(~{::title})">
+    <title>TODO削除確認</title>
+</head>
+<body>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <h2 class="text-center pb-4">TODO削除</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header bg-custom1">
+                    <h3 class="mb-0">削除の確認</h3>
+                </div>
+                <div class="pb-4"></div>
+                <div class="h3 text-center">
+                    本当に削除してよろしいでしょうか。<br />
+                    削除する場合は、削除ボタンを押してください。
+                </div>
+                <div class="card-body">
+                    <form id="accountForm" th:action="@{/todo/delete/do}" method="post">
+                        <input type="hidden" name="todoId" id="todoId" th:value="${todoId}"/>
+                        <div class="text-center">
+                            <input type="submit" value="削除" class="btn bg-custom3 btn-lg text-white"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<head th:replace="common/common_header::base_header(~{::title})">
+    <title>プロフィール画像アップロード</title>
+</head>
+<body>
+
+<nav th:replace="common/loggedinNav::navi(${accountName})"></nav>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <h2 class="text-center pb-4">プロフィール画像アップロード</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <div class="card rounded-0 card-shadow">
+                <div class="card-header bg-custom1">
+                    <h3 class="mb-0">プロフィール画像アップロード</h3>
+                </div>
+                <div class="card-body">
+                    <form id="data_upload_form" name="data_upload_form" enctype="multipart/form-data" method="post">
+                        <span>ファイルのサイズは1Mバイト以下にしてください。</span><br>
+                        <div class="row">
+                            <div class="col-6 mx-auto">
+                                <span>現在のプロフィール画像</span><br>
+                                <div id="nowImage"></div>
+                            </div>
+                            <div class="col-6 mx-auto">
+                                <span>更新後のプロフィール画像</span><br>
+                                <div id="imagePreview" class="imagePreview"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <span class="btn btn-info">
+                                    ファイル選択
+                                    <input type="file" id="upload_file" name="upload_file" style="display:none" required="" />
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <input id="data_upload_button" type="submit" class="btn btn-info" value="アップロード" disabled/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="common/common_footer"></footer>
+
+<script type="text/javascript">
+
+    window.onload = function () {
+        $("#nowImage").empty();
+        var url = "/image/myprofile";
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = "arraybuffer";
+        xhr.open("GET", url, true);
+        xhr.onload = function () {
+            var data = new Uint8Array(this.response);
+            var oURL = URL.createObjectURL(
+                new Blob([data], {type: "image/png"})
+            );
+            var image = new Image();
+            image.onload = function () {
+                URL.revokeObjectURL(oURL);
+                $("#nowImage").append(image);
+                $("#nowImage > img").css('width', 'auto').css('height', '200px');
+            };
+            image.src = oURL;
+        };
+        xhr.send(null);
+    };
+
+    $(function(){
+
+        // アップロードボタンを押下した
+        $("#data_upload_form").submit(function(event){
+            // 要素規定の動作をキャンセルする
+            event.preventDefault();
+
+         // CSRFトークンをリクエストヘッダに付加する
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            $(document).ajaxSend(function(e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+
+            var ajaxUrl = "/account/upload/upload";
+
+            if(window.FormData){
+                var formData = new FormData($(this)[0]);
+
+                $.ajax({
+                    type : "POST",                  // HTTP通信の種類
+                    url  : ajaxUrl,                 // リクエストを送信する先のURL
+                    dataType : "text",              // サーバーから返されるデータの型
+                    data : formData,                // サーバーに送信するデータ
+                    processData : false,
+                    contentType: false,
+                }).done(function(data) {            // Ajax通信が成功した時の処理
+                    alert("アップロードが完了しました。");
+                }).fail(function(XMLHttpRequest, textStatus, errorThrown) { // Ajax通信が失敗した時の処理
+                    alert("アップロードが失敗しました。");
+                });
+            }else{
+                alert("アップロードに対応できていないブラウザです。");
+            }
+        });
+    });
+    $(document).on('change', ':file', function() {
+        var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.parent().parent().next(':text').val(label);
+
+        var files = !!this.files ? this.files : [];
+        if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+        if (/^image/.test( files[0].type)){ // only image file
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[0]); // read the local file
+            if(files[0].size < 1024000){
+                reader.onloadend = function(){ // set image data as background of div
+                    $("#imagePreview").css("background-image", "url("+this.result+")");
+                    $("#data_upload_button").attr('disabled', false);
+                }
+            }else{
+                $("#data_upload_button").attr('disabled', true);
+                $("#imagePreview").css("background-image", "");
+                var errMsg ="1MB以下のファイルを選択してください。";
+                alert(errMsg);
+                input.parent().parent().next(':text').val(errMsg);
+            }
+        }else{
+            $("#data_upload_button").attr('disabled', true);
+            $("#imagePreview").css("background-image", "");
+            var errMsg ="画像ファイル以外が選択されました。";
+            alert(errMsg);
+            input.parent().parent().next(':text').val(errMsg);
+        }
+    });
+</script>
+
+</body>
+</html>

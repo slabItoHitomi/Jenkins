@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common_header::base_header(~{::title})">
+    <title>TODO検索</title>
+</head>
+<body>
+
+<nav th:replace="common/loggedinNav::navi(${accountName})"></nav>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <h2 class="text-center pb-4">TODO検索</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header bg-custom1">
+                    <h3 class="mb-0">検索条件</h3>
+                </div>
+                <div class="card-body">
+                    <form id="todoForm" th:action="@{/todo/search/do}" th:object="${todoSearchForm}" method="post">
+                        <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+                            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">共通エラーメッセージ表示エリア</p>
+                        </div>
+                        <fieldset id="todo_field">
+                            <div class="form-group">
+                                <label for="title">タイトル</label><br/>
+                                <input class="form-control" id="title" type="text"  th:field="*{title}" name="title" th:errorclass="is-invalid" placeholder="TODOタイトルを入力してください" />
+                                <small class="form-text text-muted">キーワード検索。45文字以内で入力してください。</small>
+                                <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">error!</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="detail">詳細</label><br/>
+                                <input class="form-control" id="detail" type="text"  th:field="*{detail}" name="detail" th:errorclass="is-invalid" placeholder="TODO詳細を入力してください" />
+                                <small class="form-text text-muted">キーワード検索。100文字以内で入力してください。</small>
+                                <span class="text-danger" th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}">error!</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="remarks">備考</label><br/>
+                                <input class="form-control" id="remarks" type="text"  th:field="*{remarks}" name="remarks"  th:errorclass="is-invalid" placeholder="備考を入力してください"/>
+                                <small class="form-text text-muted">キーワード検索。100文字以内で入力してください。</small>
+                                <span class="text-danger" th:if="${#fields.hasErrors('remarks')}" th:errors="*{remarks}">error!</span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group">
+                                        <label for="startDate">開始日</label><br/>
+                                        <div class="input-group date" data-target-input="nearest">
+                                            <input type="text" id="startDate" th:field="*{startDate}" name="startDate" class="form-control datetimepicker-input" data-target="#startDate" th:errorclass="is-invalid"/>
+                                            <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                        <small class="form-text text-muted">この開始日以降のTODOを検索する場合、入力してください。</small>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">error!</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group">
+                                        <label for="endDate">終了日</label><br/>
+                                        <div class="input-group date" data-target-input="nearest">
+                                            <input type="text" id="endDate" th:field="*{endDate}" name="endDate" class="form-control datetimepicker-input" data-target="#endDate" th:errorclass="is-invalid"/>
+                                            <div class="input-group-append" data-target="#endDate" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                        <small class="form-text text-muted">この終了日以前のTODOを検索する場合、入力してください。</small>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">error!</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group">
+                                        <label for="issuePersonId">起票者</label><br/>
+                                        <select class="form-control selectpicker" multiple="multiple" id="issuePersonId" th:field="*{issuePersonId}" th:errorclass="is-invalid">
+                                            <option th:each="entry : ${accountList.entrySet()}" th:value="${entry.key}" th:text="${entry.value}"></option>
+                                        </select>
+                                        <small class="form-text text-muted">この起票者のTODOを検索する場合、選択してください。</small>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('issuePersonId')}" th:errors="*{issuePersonId}">error!</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group">
+                                        <label for="personInChargeId">担当者</label><br/>
+                                        <select class="form-control selectpicker" multiple="multiple" id="personInChargeId" th:field="*{personInChargeId}" th:errorclass="is-invalid">
+                                            <option th:each="entry : ${accountList.entrySet()}" th:value="${entry.key}" th:text="${entry.value}"></option>
+                                        </select>
+                                        <small class="form-text text-muted">この担当者のTODOを検索する場合、選択してください。</small>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('personInChargeId')}" th:errors="*{issuePersonId}">error!</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group">
+                                        <label for="selectedStatus">ステータス</label><br/>
+                                        <select class="form-control selectpicker" multiple="multiple" name="selectedStatus" id="selectedStatus" th:field="*{selectedStatus}" th:errorclass="is-invalid">
+                                            <option th:each="entry : ${allStatus.status.entrySet()}" th:value="${entry.key}" th:text="${entry.value}"></option>
+                                        </select>
+                                        <small class="form-text text-muted">このステータスのTODOを検索する場合、選択してください。</small>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('selectedStatus')}" th:errors="*{selectedStatus}">error!</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 mx-auto">
+                                    <div class="form-group">
+                                        <label for="selectedPriority">優先度</label><br/>
+                                        <select class="form-control selectpicker" multiple="multiple" id="selectedPriority" name="selectedPriority" th:field="*{selectedPriority}" data-target="#selectedPriority" th:errorclass="is-invalid">
+                                            <option th:each="entry : ${allPriority.priority.entrySet()}" th:value="${entry.key}" th:text="${entry.value}"></option>
+                                        </select>
+                                        <small class="form-text text-muted">この優先度のTODOを検索する場合、選択してください。</small>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('selectedPriority')}" th:errors="*{selectedPriority}">error!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="col text-center">
+                            <div class="btn-group">
+                                <input type="submit" name="search" value="検索" class="btn bg-custom3 btn-lg text-white "/>
+                            </div>
+                            <div class="btn-group">
+                                <input class="btn btn-secondary btn-lg clearForm" type="button" value="条件クリア">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row py-3">
+        <div class="col-12 mx-auto">
+            <!--結果の表示-->
+            <div th:if="!${#lists.isEmpty(list)}">
+                <table class="table table-striped table-lg table-bordered" style="table-layout:fixed;">
+                    <thead>
+                    <tr>
+                        <th width=25% >タイトル</th>
+                        <th width=10% >開始日</th>
+                        <th width=10% >終了日</th>
+                        <th width=15% >起票者</th>
+                        <th width=15% >担当者</th>
+                        <th width=9% >ステータス</th>
+                        <th width=6% >優先度</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="todo : ${list}">
+                            <td class="overflow-wrap-break"> <a th:href="@{/todo/search/detail(todoId=${todo.id})}" th:text="${todo.title}" target="newtab"></a></td>
+                            <td class="overflow-wrap-break" th:text="${todo.startDate}"></td>
+                            <td class="overflow-wrap-break" th:text="${todo.endDate}"></td>
+                            <td class="overflow-wrap-break" th:text="${accountList.containsKey(todo.issuePersonId)} ? ${accountList.get(todo.issuePersonId)} : '退会済ユーザ'"></td>
+                            <td class="overflow-wrap-break" th:text="${accountList.containsKey(todo.personInChargeId)} ? ${accountList.get(todo.personInChargeId)} : '退会済ユーザ'"></td>
+                            <td class="overflow-wrap-break" th:text="${allStatus.status.get(todo.status)}"></td>
+                            <td class="overflow-wrap-break" th:text="${allPriority.priority.get(todo.priority)}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<footer th:replace="common/common_footer"></footer>
+
+<script th:inline="javascript">
+    /*<![CDATA[>*/
+    $(function () {
+        var dateFormat = 'YYYY/MM/DD';
+        var startDatePicker = $('#startDate');
+        var endDatePicker = $('#endDate');
+
+        var startDate = moment(startDatePicker.val(), dateFormat).toDate();
+        var endDate = moment(endDatePicker.val(), dateFormat).toDate();
+        startDatePicker.datetimepicker({format: dateFormat, date: null});
+        startDatePicker.datetimepicker('date', startDate);
+        endDatePicker.datetimepicker({format: dateFormat, date: null});
+        endDatePicker.datetimepicker('date', endDate);
+
+        var issuePersonIdVar = /*[[(${todoSearchForm.issuePersonId})]]*/ null;
+        if (issuePersonIdVar !== null) {
+            $('select[name=issuePersonId]').val(issuePersonIdVar.split(","));
+        }
+
+        var personInChargeIdVar = /*[[(${todoSearchForm.personInChargeId})]]*/ null;
+        if (personInChargeIdVar !== null) {
+            $('select[name=personInChargeId]').val(personInChargeIdVar.split(","));
+        }
+
+        var selectedPriorityVar = /*[[(${todoSearchForm.selectedPriority})]]*/ null;
+        if (selectedPriorityVar !== null) {
+            $('select[name=selectedPriority]').val(selectedPriorityVar.split(","));
+        }
+
+        var selectedStatusVar = /*[[(${todoSearchForm.selectedStatus})]]*/ null;
+        if (selectedStatusVar !== null) {
+            $('select[name=selectedStatus]').val(selectedStatusVar.split(","));
+        }
+
+        $('.selectpicker').selectpicker('refresh');
+    });
+    $(".clearForm").bind("click", function(){
+        $(this.form).find("textarea, :text, select").val("").end().find(":checked").prop("checked", false);
+        $(".selectpicker").val('default');
+        $(".selectpicker").selectpicker("refresh");
+    });
+
+    /*]]>*/
+</script>
+
+</body>
+</html>

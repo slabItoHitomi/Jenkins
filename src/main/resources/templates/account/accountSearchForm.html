@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common_header::base_header(~{::title})">
+    <title>アカウント検索</title>
+</head>
+<body>
+
+<nav th:replace="common/loggedinNav::navi(${accountName})"></nav>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <h2 class="text-center pb-4">アカウント検索</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <!--検索条件-->
+            <div class="card rounded-0 card-shadow">
+                <div class="card-header bg-custom1">
+                    <h3 class="mb-0">検索条件</h3>
+                </div>
+                <div class="card-body">
+                    <form id="searchForm" th:action="@{/account/search/do}" th:object="${accountSearchForm}" method="post">
+                        <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+                            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">共通エラーメッセージ表示エリア</p>
+                        </div>
+                        <fieldset id="account_field">
+                            <div class="form-group">
+                                <label for="accountId">アカウントID</label><br/>
+                                <input class="form-control" id="accountId" type="text"  th:field="*{accountId}" name="accountId" th:errorclass="is-invalid" placeholder="アカウントIDを入力してください"/>
+                                <span class="text-danger" th:if="${#fields.hasErrors('accountId')}" th:errors="*{accountId}">error!</span>
+                            </div>
+                            <div class="form-group">
+                                <labeol for="name">氏名</labeol><br/>
+                                <input class="form-control" id="name" type="text"  th:field="*{name}" name="name" th:errorclass="is-invalid" placeholder="氏名を入力してください"/>
+                                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error!</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label><br/>
+                                <input class="form-control" id="email" type="text"  th:field="*{email}" name="email" th:errorclass="is-invalid" placeholder="メールアドレスを入力してください"/>
+                                <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">error!</span>
+                            </div>
+                        </fieldset>
+                        <div class="col text-center">
+                            <div class="btn-group">
+                                <input type="submit" name="search" value="検索" class="btn bg-custom3 btn-lg text-white "/>
+                            </div>
+                            <div class="btn-group">
+                                <input class="btn btn-secondary btn-lg clearForm" type="button" value="条件クリア">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row py-3">
+        <div class="col-12 mx-auto">
+            <!--結果の表示-->
+            <div th:if="!${#lists.isEmpty(list)}">
+                <div class="col-3 account-profile" th:each="account : ${list}">
+                    <div class="img-thumbnail">
+                        <img th:src="@{/image/profile(id=${account.id})}" class="rounded">
+                        <div class="figure-caption">
+                            <span class="badge badge-info">氏名</span>
+                            <h4 th:text="${account.name}"></h4>
+                            <span class="badge badge-info">アカウントID</span>
+                            <p th:text="${account.accountId}"></p>
+                            <span class="badge badge-info">E-mail</span>
+                            <p th:text="${account.email}"></p>
+                            <p>
+                                <button class="btn bg-custom3 text-white btn-sm" data-toggle="modal" data-target="#modal-selfIntroduction"
+                                        th:attr="data-accountid=${account.accountId},data-intro=${account.selfIntroduction},data-name=${account.name},data-id=${account.id},data-email=${account.email}">
+                                    Open</button>
+                            </p>
+                        </div>
+
+                        <!-- 2.モーダルの配置 -->
+                        <div class="modal fade" id="modal-selfIntroduction" role="dialog" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <!-- 3.モーダルのコンテンツ -->
+                                <div class="modal-content">
+                                    <!-- 4.モーダルのヘッダ -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="modal-label">埋め込み</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <!-- 5.モーダルのボディ -->
+                                    <div class="modal-body" id="modal-body">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div id="images" class="img-fluid"></div>
+                                            </div>
+                                            <div class="col-7">
+                                                <span class="badge badge-info">氏名</span>
+                                                <p class="account-name"></p>
+                                                <span class="badge badge-info">アカウントID</span>
+                                                <p class="account-id"></p>
+                                                <span class="badge badge-info">E-mail</span>
+                                                <p class="account-email"></p>
+                                                <span class="badge badge-info">自己紹介</span>
+                                                <pre class="selfIntroduction"></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 6.モーダルのフッタ -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="common/common_footer"></footer>
+</body>
+<script type="text/javascript">
+    $('#modal-selfIntroduction').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var accountname = button.data('name');
+        var accountid = button.data('accountid');
+        var selfIntroduction = button.data('intro');
+        var email= button.data('email');
+        selfIntroduction = removeTags(selfIntroduction);
+        selfIntroduction = selfIntroduction.replace(/\r?\n/g, '<br>');
+        var modal = $(this);//モーダルを取得
+        modal.find('.modal-title').text(accountname + ' さんの自己紹介');
+        modal.find('.selfIntroduction').html(selfIntroduction);
+        modal.find('.account-id').text(accountid);
+        modal.find('.account-name').text(accountname);
+        modal.find('.account-email').text(email);
+
+        $("#images").empty();
+        var id = button.data('id');
+        var url = "/image/profile?id=" + id;
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = "arraybuffer";
+        xhr.open("GET", url, true);
+        xhr.onload = function () {
+            var data = new Uint8Array(this.response);
+            var oURL = URL.createObjectURL(
+                new Blob([data], {type: "image/png"})
+            );
+            var image = new Image();
+            image.onload = function () {
+                URL.revokeObjectURL(oURL);
+                $("#images").append(image);
+                $("#images > img").css('max-width', '240px','max-height','240px','object-fit','contain');
+
+            };
+            image.src = oURL;
+        };
+        xhr.send(null);
+    });
+
+    $(".clearForm").bind("click", function(){
+        $(this.form).find("textarea, :text, select").val("").end().find(":checked").prop("checked", false);
+    });
+
+</script>
+</html>

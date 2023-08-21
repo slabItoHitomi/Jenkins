@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common_header::base_header(~{::title})">
+    <title>ログイン</title>
+</head>
+<body style="background-color:#eeeeee;">
+
+<nav th:replace="common/noLoginNav"></nav>
+<!-- 1列目 -->
+<div class="jumbotron jumbotron-extend" style="margin-bottom: 0px;">
+    <div class="container py-5">
+        <!--Grid row-->
+        <div class="row pt-3">
+            <!--Grid column-->
+            <div class="col-6 mb-4 text-white text-center site-name">
+                <h1 class="display-4 font-weight-bold">Let's Learn JavaApplication made with SpringBoot</h1>
+                <hr class="border-dark">
+                <p>
+                    <strong>The web design was created by Bootstrap4</strong>
+                </p>
+                <p class="mb-4 d-none d-block">
+                    <strong>SpringBoot and Bootstrap are a framework for making web applications very easily.<br>
+                        SpringBoot is the application framework, Bootstrap is the CSS framework.</strong>
+                </p>
+            </div>
+            <!--Grid column-->
+
+            <div class="col-6" mb-4>
+                <div class="card rounded">
+                    <div class="card-header bg-custom1">
+                        <h3 class="mb-0">Login</h3>
+                    </div>
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        アカウントID、またはパスワードが誤っています。
+                    </div>
+                    <div class="card-body">
+                        <form id="login_form" method="post" th:action="@{'/login'}">
+                            <div class="form-group required">
+                                <label for="login_id">アカウントID</label>
+                                <input type="text" class="form-control rounded" id="login_id" name="login_id" placeholder="アカウントID" autofocus required/>
+                                <div class="invalid-feedback">Oops, you missed this one.</div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="login_password">パスワード</label>
+                                <input type="password" class="form-control rounded" id="login_password" name="login_password" placeholder="パスワード" required />
+                                <div class="invalid-feedback">Enter your password too!</div>
+                            </div>
+                            <div class="form-group">
+                                <input id="login" type="submit" value="ログイン" class="btn btn-lg btn-block bg-custom3 text-white" />
+                            </div>
+                        </form>
+                        <form id="account_form" method="post" th:action="@{'/account/register/init'}">
+                            <input id="accountRegister" type="submit" value="アカウント登録" class="btn btn-lg btn-block bg-custom3 text-white" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 2列目 -->
+<hr class="my-5">
+<div class="container">
+    <div class="row">
+        <div class="col-6 mb-3">
+            <img src="/images/note.jpg" class="img-fluid rounded card-shadow">
+        </div>
+        <div class="col-6 mb-4">
+            <h3 class="h3 mb-3">TODO Management System</h3>
+            <p>今日も一日頑張ろう！</p>
+            <p>TODOを登録して、効率的に作業をしましょう！TODOが登録者全員に共有されます。</p>
+            <hr>
+            <a href="/account/register/init" class="btn btn-lg bg-custom3 text-white">
+                会員登録
+                <i class="fas fa-external-link-alt ml-1"></i>
+            </a>
+            <a href="#" class="btn btn-lg bg-custom3 text-white">
+                ログイン
+                <i class="far fa-hand-point-left ml-1"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- 3列目 -->
+<hr class="my-5">
+<div class="container">
+    <div class="row">
+        <h3 class="col-12 h3 text-center mb-5">About TODO Management System</h3>
+    </div>
+    <div class="row">
+        <div class="col-6 px-4">
+            <div class="row">
+                <div class="col-1 mr-3">
+                    <i class="fas fa-list-ul fa-2x indigo-text"></i>
+                </div>
+                <div class="col-10">
+                    <h5>TODO登録機能</h5>
+                    <p >忘れずにTODOを登録し、タスクを消化していきましょう！慣れると効率的に作業ができるようになります。</p>
+                </div>
+            </div>
+            <div style="height:30px"></div>
+            <div class="row">
+                <div class="col-1 mr-3">
+                    <i class="fas fa-comments fa-2x blue-text"></i>
+                </div>
+                <div class="col-10">
+                    <h5>つぶやき機能</h5>
+                    <p >会員間で、コミュニケーションツールとして、<strong>つぶやき機能</strong>が使えます。
+                    </p>
+                </div>
+            </div>
+            <div style="height:30px"></div>
+            <div class="row">
+                <div class="col-1 mr-3">
+                    <i class="fas fa-sun fa-2x cyan-text"></i>
+                </div>
+                <div class="col-10">
+                    <h5>天気予報</h5>
+                    <p>天気予報を確認することができます。天気のいい日は、早く作業を消化して、遊びにいきましょう！</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <p class="h5 text-center mb-4">動画の埋め込み(サンプル)</p>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/z6SZf7MOkEA" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="my-5">
+<footer th:replace="common/common_footer"></footer>
+</body>
+</html>

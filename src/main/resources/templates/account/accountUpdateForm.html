@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common_header::base_header(~{::title})">
+    <title>アカウント情報更新</title>
+</head>
+<body>
+
+<nav th:replace="common/loggedinNav::navi(${accountName})"></nav>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <h2 class="text-center pb-4">アカウント情報更新</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <div class="card rounded-0 card-shadow">
+                <div class="card-header bg-custom1">
+                    <h3 class="mb-0">更新内容入力</h3>
+                </div>
+                <div class="card-body bg-gray1">
+                    <form id="accountForm" th:action="@{/account/update/confirm}" th:object="${accountUpdateForm}" method="post">
+                        <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+                            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">共通エラーメッセージ表示エリア</p>
+                        </div>
+                        <fieldset id="account_field">
+                            <div class="form-group required">
+                                <label for="accountId">アカウントID</label><br/>
+                                <input class="form-control" id="accountId" type="text"  th:field="*{accountId}" name="accountId" th:errorclass="is-invalid" required placeholder="アカウントIDを入力してください"/>
+                                <small class="form-text text-muted">アカウントIDは3文字以上、15文字以下かつ、半角英数字で入力してください。</small>
+                                <span class="text-danger" th:if="${#fields.hasErrors('accountId')}" th:errors="*{accountId}">error!</span>
+                            </div>
+                            <div class="form-group required">
+                                <label for="name">氏名</label><br/>
+                                <input class="form-control" id="name" type="text"  th:field="*{name}" name="name" th:errorclass="is-invalid" required placeholder="氏名を入力してください"/>
+                                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error!</span>
+                            </div>
+                            <div class="form-group required">
+                                <label for="email">E-mail</label><br/>
+                                <input class="form-control" id="email" type="text"  th:field="*{email}" name="email" th:errorclass="is-invalid" required placeholder="メールアドレスを入力してください"/>
+                                <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">error!</span>
+                            </div>
+                            <div class="form-group required">
+                                <label for="selfIntroduction">自己紹介</label><br/>
+                                <textarea class="form-control selfIntroduction" id="selfIntroduction" rows="3" cols="80"  th:field="*{selfIntroduction}" name="selfIntroduction" th:errorclass="is-invalid" required placeholder="自己紹介を入力してください"></textarea>
+                                <span class="text-danger" th:if="${#fields.hasErrors('selfIntroduction')}" th:errors="*{selfIntroduction}">error!</span>
+                            </div>
+                            <div class="col text-center">
+                                <input type="submit" value="確認画面へ" class="btn btn-info text-white btn-lg"/>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="common/common_footer"></footer>
+</body>
+</html>

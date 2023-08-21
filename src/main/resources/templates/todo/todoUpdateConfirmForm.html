@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common_header::base_header(~{::title})">
+    <title>TODO更新確認</title>
+</head>
+<body>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <h2 class="text-center pb-4">TODO更新</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header bg-custom1">
+                    <h3 class="mb-0">TODO情報入力確認</h3>
+                </div>
+                <div class="card-body">
+                    <form id="todoForm" th:action="@{/todo/update/do}" th:object="${todoUpdateForm}" method="post">
+                        <table class="table table-lg table-bordered" style="table-layout:fixed;">
+                            <tbody>
+                            <tr>
+                                <td class="overflow-wrap-break table-info font-weight-bold" width=20% th:text="タイトル"></td>
+                                <td class="overflow-wrap-break" th:text="*{title}"></td>
+                            </tr>
+                            <tr>
+                                <td class="overflow-wrap-break table-info font-weight-bold" th:text="詳細"></td>
+                                <td class="overflow-wrap-break" id="detailPreview" th:utext="*{detail}"></td>
+                            </tr>
+                            <tr>
+                                <td class="overflow-wrap-break table-info font-weight-bold" th:text="備考"></td>
+                                <td class="overflow-wrap-break" id="remarksPreview" th:utext="*{remarks}"></td>
+                            </tr>
+                            <tr>
+                                <td class="overflow-wrap-break table-info font-weight-bold" th:text="開始日"></td>
+                                <td class="overflow-wrap-break" th:text="*{startDate}"></td>
+                            </tr>
+                            <tr>
+                                <td class="overflow-wrap-break table-info font-weight-bold" th:text="終了日"></td>
+                                <td class="overflow-wrap-break" th:text="*{endDate}"></td>
+                            </tr>
+                            <tr>
+                                <td class="overflow-wrap-break table-info font-weight-bold" th:text="起票者"></td>
+                                <td class="overflow-wrap-break" th:text="${issuePersonName}"></td>
+                            </tr>
+                            <tr>
+                                <td class="overflow-wrap-break table-info font-weight-bold" th:text="担当者"></td>
+                                <td class="overflow-wrap-break" th:text="${personInChargeName}"></td>
+                            </tr>
+                            <tr>
+                                <td class="overflow-wrap-break table-info font-weight-bold" th:text="ステータス"></td>
+                                <td class="overflow-wrap-break" th:text="${statusName}"></td>
+                            </tr>
+                            <tr>
+                                <td class="overflow-wrap-break table-info font-weight-bold" th:text="優先度"></td>
+                                <td class="overflow-wrap-break" th:text="${priorityName}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                            <input type="hidden" name="id" id="id" th:value="*{id}"/>
+                            <input type="hidden" name="title" id="title" th:value="*{title}"/>
+                            <input type="hidden" name="detail" id="detail" th:value="*{detail}"/>
+                            <input type="hidden" name="remarks" id="remarks" th:value="*{remarks}"/>
+                            <input type="hidden" name="startDate" id="startDate" th:value="*{startDate}"/>
+                            <input type="hidden" name="endDate" id="endDate" th:value="*{endDate}"/>
+                            <input type="hidden" name="issuePersonId" id="issuePersonId" th:value="*{issuePersonId}"/>
+                            <input type="hidden" name="personInChargeId" id="personInChargeId" th:value="*{personInChargeId}"/>
+                            <input type="hidden" name="status" id="status" th:value="*{status}"/>
+                            <input type="hidden" name="priority" id="priority" th:value="*{priority}"/>
+
+                            <div class="col text-center">
+                                <div class="btn-group">
+                                    <input type="submit" name="back" value="戻る" class="btn bg-custom3 btn-lg text-white "/>
+                                </div>
+                                <div class="btn-group">
+                                    <input type="submit" name="update" value="更新" class="btn bg-custom3 btn-lg text-white "/>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#startDate').datetimepicker({
+            format: 'L',
+            locale: 'ru'
+        });
+        $('#endDate').datetimepicker({
+            format: 'L',
+            locale: 'ru'
+        });
+        var detailStr = $('#detailPreview').text();
+        var remarksStr = $('#remarksPreview').text();
+        $('#detailPreview').html(detailStr.replace(/[\n\r]/g, '<br>'));
+        $('#remarksPreview').html(remarksStr.replace(/[\n\r]/g, '<br>'));
+    });
+</script>
+
+</body>
+</html>

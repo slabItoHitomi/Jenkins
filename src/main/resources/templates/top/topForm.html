@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<meta name="_login_id" th:content="${session.account.id}"/>
+<head th:replace="common/common_header::base_header(~{::title})">
+    <title>トップ</title>
+</head>
+<body>
+
+<nav th:replace="common/loggedinNav::navi(${accountName})"></nav>
+
+<div class="container-fluid bg-image">
+    <div class="row bg-mask">
+        <!-- 左サイドバー -->
+        <div class="col-2 d-none d-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <h6 class="sidebar-heading d-flex align-items-center px-3 mt-3 mb-1 text-muted">
+                    <span><i class="far fa-address-card">&nbsp;</i>アカウント機能</span>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a href="/account/update/init" class="nav-link">アカウント情報更新</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/account/password/init" class="nav-link">パスワード更新</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/account/search/init" class="nav-link">アカウント一覧検索</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/account/search/paging/init" class="nav-link">ページング検索 </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/account/upload/init" class="nav-link">画像アップロード</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/account/unsubscribe/init" class="nav-link">退会</a>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex align-items-center px-3 mt-3 mb-1 text-muted">
+                    <span><i class="fas fa-tasks"></i>&nbsp;TODO機能</span>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a href="/todo/register/init" class="nav-link">TODO登録</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/todo/search/init" class="nav-link">TODO一覧検索 </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="col-10">
+            <!-- つぶやき機能 -->
+            <div class="card rounded-0 mt-3">
+                <div class="card-header bg-custom1">
+                    <h3 class="mb-0">つぶやき</h3>
+                </div>
+                <div class="card-body bg-gray1">
+                    <form id="commentForm">
+                        <fieldset id="comment_field">
+                            <textarea class="form-control" id="comment" rows="3" cols="80"  name="comment" required placeholder="メンバーとお話してみよう"></textarea>
+                        </fieldset>
+                        <div class="col text-right mt-1">
+                            <input type="submit" value="投稿" class="btn btn-lg bg-custom3 text-white" />
+                        </div>
+                    </form>
+                    <div id="commentSearchResult"></div>
+                </div>
+            </div>
+
+            <!-- TODOリスト -->
+            <div class="card rounded-0 mt-3" th:if="!${#lists.isEmpty(list)}">
+                <div class="card-header bg-custom1">
+                    <h4 class="mb-0">現在担当しているTODO</h4>
+                </div>
+                <div class="card-body bg-gray1">
+                    <div class="todo">
+                        <div th:each="todo : ${list}" class="todo-list">
+                            <img src="/images/memo.png">
+                            <div class="text">
+                                <p th:text="${todo.title}"></p>
+                                <p th:text="'開始日:' + ${todo.startDate}"></p>
+                                <p th:text="'終了日:' + ${todo.endDate}"></p>
+                                <p th:text="'優先度:' + ${allPriority.priority.get(todo.priority)}"></p>
+                                <p th:text="'ステータス:' + ${allStatus.status.get(todo.status)}"></p>
+                                <div class="btn">
+                                    <a class="btn bg-custom3 text-white" th:href="@{/todo/search/detail(todoId=${todo.id})}" target="newtab">詳細を見る</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        window.onload = function () {
+            commentGet();
+        };
+        $("#commentForm").submit(function(event) {
+            // 要素規定の動作をキャンセルする
+            event.preventDefault();
+            //データをJSONに加工
+            var JSONdata = {
+                "comment": $("#comment").val()
+            };
+            // CSRFトークンをリクエストヘッダに付加する
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            $(document).ajaxSend(function(e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+            var ajaxUrl = "/comment/register";
+            $.ajax({
+                type: 'post',                       // HTTP通信の種類
+                url: ajaxUrl,                       // リクエストを送信する先のURL
+                dataType: 'json',                   // サーバーから返されるデータの型
+                contentType: 'application/json',    // 送信するデータの型
+                data: JSON.stringify(JSONdata)      // 送信するデータ
+                // Ajax通信が成功した時の処理
+            }).done(function(data) {
+                commentGet();
+                //textareaの中身を空にする
+                $("#comment").val("");
+                // Ajax通信が失敗した時の処理
+            }).fail(function(data) {
+                alert("投稿が失敗しました。" + data.responseJSON.errors[0].defaultMessage);
+            });
+        });
+
+        function commentDelete(id){
+            // 要素規定の動作をキャンセルする
+            event.preventDefault();
+            // CSRFトークンをリクエストヘッダに付加する
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            $(document).ajaxSend(function(e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+            //データをJSONに加工
+            var JSONdata = {
+                "id":id
+            };
+            var ajaxUrl = "/comment/delete/"+ id;
+            $.ajax({
+                type: 'delete',                    // HTTP通信の種類
+                url: ajaxUrl,                      // リクエストを送信する先のURL
+                contentType: 'application/json',   // 送信するデータの型
+                data: JSON.stringify(JSONdata)     // 送信するデータ
+                // Ajax通信が成功した時の処理
+            }).done(function(data) {
+                commentGet();
+                // Ajax通信が失敗した時の処理
+            }).fail(function(data) {
+                alert("削除に失敗しました。");
+            });
+        }
+
+        function commentGet(){
+            $.getJSON("/comment/search", function(json){
+                var src = "";
+                $('#commentSearchResult').html(src);
+                for(var i=0; i<json.length; i++){
+                    var id = json[i].id;
+                    var loginId = json[i].loginId;
+                    var name = json[i].name;
+                    var comment = json[i].comment;
+                    var createdTms = json[i].createdTms;
+                    comment = removeTags(comment);
+                    comment = convertBr(comment);
+                    src += '<div class="row">';
+                    src += '<div class="col-1">';
+                    src += '<img src="/image/profile?id=' + loginId + '" width="130%" class="rounded">';
+                    src += '</div>';
+                    src += '<div class="col-11">';
+                    src += '<b>' + name + '</b>さん';
+                    src += '<p>' + comment + '&nbsp;';
+                    src += '<small>(' + createdTms + ')</small>';
+                    if(loginId == $("meta[name='_login_id']").attr("content")) {
+                        src += ' <small><a id="commentDelete" onclick="commentDelete(' + id + ');" href="#">削除</a></small>';
+                    }
+                    src += '</p></div>';
+                    src += '</div>';
+                    src += '<hr>';
+                }
+                $('#commentSearchResult').append(src);
+            });
+        }
+    </script>
+</body>
+</html>
